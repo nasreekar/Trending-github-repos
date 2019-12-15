@@ -23,7 +23,7 @@ abstract class BaseActivity : AppCompatActivity() {
         super.setContentView(layoutResID)
     }
 
-    fun showProgressBar(visibility:Boolean) {
-        mProgressBar.visibility = if(visibility) View.VISIBLE else View.INVISIBLE
+    fun showProgressBar(visibility: Boolean) {
+        mProgressBar.visibility = if (visibility) View.VISIBLE else View.INVISIBLE
     }
 }

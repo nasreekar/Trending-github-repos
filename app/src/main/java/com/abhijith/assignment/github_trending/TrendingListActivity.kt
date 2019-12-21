@@ -5,12 +5,12 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.abhijith.assignment.github_trending.adapter.TrendingRepoListAdapter
+import com.abhijith.assignment.github_trending.models.GithubRepo
 import com.abhijith.assignment.github_trending.network.ServiceGenerator
 import com.abhijith.assignment.github_trending.viewmodels.TrendingListViewModel
 import kotlinx.android.synthetic.main.activity_trending_list.*
@@ -23,6 +23,8 @@ class TrendingListActivity : BaseActivity() {
     }
 
     private lateinit var trendingListViewModel: TrendingListViewModel
+    private lateinit var adapter: TrendingRepoListAdapter
+    private lateinit var trendingRepoList: List<GithubRepo>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +35,7 @@ class TrendingListActivity : BaseActivity() {
         ServiceGenerator(this)
 
         val recyclerView = findViewById<RecyclerView>(R.id.rv_repo)
-        val adapter = TrendingRepoListAdapter(this)
+        adapter = TrendingRepoListAdapter(this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -45,7 +47,8 @@ class TrendingListActivity : BaseActivity() {
 
             repoList?.let {
                 // stop animating Shimmer and hide the layout
-                adapter.setRepos(it)
+                trendingRepoList = it
+                adapter.setRepos(trendingRepoList.sortedByDescending { repo -> repo.stars })
                 shimmer_view_container.stopShimmer()
                 shimmer_view_container.visibility = View.GONE
             }
@@ -63,11 +66,11 @@ class TrendingListActivity : BaseActivity() {
         val id = item.itemId
 
         if (id == R.id.sortByStars) {
-            Toast.makeText(this, "Sort By Stars Clicked", Toast.LENGTH_SHORT).show()
+            adapter.setRepos(trendingRepoList.sortedByDescending { repo -> repo.stars })
             return true
         }
         if (id == R.id.sortByName) {
-            Toast.makeText(this, "Sort By Name Clicked", Toast.LENGTH_SHORT).show()
+            adapter.setRepos(trendingRepoList.sortedBy { repo -> repo.name })
             return true
         }
 

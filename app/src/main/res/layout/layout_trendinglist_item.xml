@@ -24,25 +24,23 @@
 
             <TextView
                 android:id="@+id/item_author"
+                style="@style/authorStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/dp_20"
                 android:gravity="center_vertical"
-                android:hint="nasreekar"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/sp_20" />
+                android:hint="@string/author_placeholder" />
 
             <TextView
                 android:id="@+id/item_name"
+                style="@style/repoNameStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/dp_20"
                 android:gravity="center_vertical"
-                android:hint="Github tending repo"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/sp_20" />
+                android:hint="@string/name_placeholder" />
         </LinearLayout>
 
     </LinearLayout>
@@ -59,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
             android:layout_marginBottom="@dimen/dp_10"
-            android:textSize="@dimen/sp_16" />
+            style="@style/desriptionStyle"/>
 
         <LinearLayout
             android:id="@+id/item_language_container"
@@ -80,8 +78,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_5"
-                android:hint="Java"
-                android:textColor="@android:color/black" />
+                android:hint="@string/language_placeholder"
+                style="@style/authorStyle"/>
         </LinearLayout>
 
         <LinearLayout
@@ -105,8 +103,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_5"
-                android:hint="3"
-                android:textColor="@android:color/black" />
+                android:hint="@string/star_placeholder"
+                style="@style/authorStyle"/>
         </LinearLayout>
 
         <LinearLayout
@@ -130,8 +128,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_5"
-                android:hint="123"
-                android:textColor="@android:color/black" />
+                android:hint="@string/fork_placeholder"
+                style="@style/authorStyle"/>
         </LinearLayout>
 
     </RelativeLayout>

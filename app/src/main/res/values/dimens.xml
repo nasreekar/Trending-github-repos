@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="toolbar_elevation">5dp</dimen>
+    <dimen name="toolbar_elevation">1dp</dimen>
     <dimen name="toolbar_height">56dp</dimen>
     <dimen name="dp_12">12dp</dimen>
     <dimen name="dp_15">15dp</dimen>
@@ -9,6 +9,8 @@
     <dimen name="icon_size">16dp</dimen>
     <dimen name="avatar_size">32dp</dimen>
     <dimen name="dp_10">10dp</dimen>
+    <dimen name="sp_12">12sp</dimen>
+    <dimen name="sp_15">15sp</dimen>
     <dimen name="sp_16">16sp</dimen>
     <dimen name="sp_20">20sp</dimen>
     <dimen name="dp_5">5dp</dimen>

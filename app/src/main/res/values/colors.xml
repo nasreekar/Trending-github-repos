@@ -10,4 +10,6 @@
     <color name="toolBarTextColor">#25282B</color>
 
     <color name="backgroundColor">#dddddd</color>
+
+    <color name="repoTextColor">#52575C</color>
 </resources>

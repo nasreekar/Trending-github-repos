@@ -47,6 +47,7 @@ class TrendingRepoListAdapter internal constructor(
         holder.forkCount.text = current.forks.toString()
         Glide.with(holder.avatar.context)
             .load(current.avatar)
+            .circleCrop()
             .placeholder(R.drawable.ic_placeholder)
             .error(R.drawable.ic_placeholder)
             .into(holder.avatar)

@@ -19,4 +19,22 @@
         <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:textSize">21sp</item>
     </style>
+
+    <style name="authorStyle">
+        <item name="android:textColor">@color/repoTextColor</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+    </style>
+
+    <style name="repoNameStyle">
+        <item name="android:textColor">@color/repoTextColor</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">@dimen/sp_15</item>
+    </style>
+
+    <style name="desriptionStyle">
+        <item name="android:textColor">@color/repoTextColor</item>
+        <item name="android:fontFamily">@font/pingfang_regular</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+    </style>
 </resources>

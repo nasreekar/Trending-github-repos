@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.abhijith.assignment.github_trending.adapter.TrendingRepoListAdapter
@@ -38,6 +39,12 @@ class TrendingListActivity : BaseActivity() {
         adapter = TrendingRepoListAdapter(this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                DividerItemDecoration.VERTICAL
+            )
+        )
 
         // Get the view model
         trendingListViewModel = ViewModelProviders.of(this).get(TrendingListViewModel::class.java)

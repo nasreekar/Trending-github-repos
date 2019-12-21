@@ -5,4 +5,9 @@
     <string name="sort_by_stars">Sort by stars</string>
     <string name="sort_by_name">Sort by name</string>
     <string name="user_avatar">Github User Avatar</string>
+    <string name="language_placeholder">Kotlin</string>
+    <string name="star_placeholder">3</string>
+    <string name="fork_placeholder">123</string>
+    <string name="author_placeholder">nasreekar</string>
+    <string name="name_placeholder">Github Trending repo</string>
 </resources>

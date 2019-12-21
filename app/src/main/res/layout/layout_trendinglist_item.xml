@@ -2,12 +2,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
-    android:padding="@dimen/dp_20">
+    android:padding="@dimen/dp_16">
 
     <LinearLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_8"
         android:orientation="horizontal">
 
         <ImageView
@@ -20,6 +21,7 @@
             android:id="@+id/item_repo_user_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
             android:orientation="vertical">
 
             <TextView
@@ -28,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_6"
                 android:gravity="center_vertical"
                 android:hint="@string/author_placeholder" />
 
@@ -38,7 +40,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/dp_20"
                 android:gravity="center_vertical"
                 android:hint="@string/name_placeholder" />
         </LinearLayout>
@@ -49,15 +50,15 @@
         android:id="@+id/item_extra_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/container">
+        android:layout_below="@id/container"
+        android:layout_marginStart="@dimen/dp_48">
 
         <TextView
             android:id="@+id/item_description"
+            style="@style/desriptionStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginBottom="@dimen/dp_10"
-            style="@style/desriptionStyle"/>
+            android:layout_marginBottom="@dimen/dp_8" />
 
         <LinearLayout
             android:id="@+id/item_language_container"
@@ -75,11 +76,11 @@
 
             <TextView
                 android:id="@+id/item_language"
+                style="@style/authorStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_5"
-                android:hint="@string/language_placeholder"
-                style="@style/authorStyle"/>
+                android:layout_marginStart="@dimen/dp_4"
+                android:hint="@string/language_placeholder" />
         </LinearLayout>
 
         <LinearLayout
@@ -100,11 +101,11 @@
 
             <TextView
                 android:id="@+id/item_star_count"
+                style="@style/authorStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_5"
-                android:hint="@string/star_placeholder"
-                style="@style/authorStyle"/>
+                android:layout_marginStart="@dimen/dp_4"
+                android:hint="@string/star_placeholder" />
         </LinearLayout>
 
         <LinearLayout
@@ -125,11 +126,11 @@
 
             <TextView
                 android:id="@+id/item_fork_count"
+                style="@style/authorStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_5"
-                android:hint="@string/fork_placeholder"
-                style="@style/authorStyle"/>
+                android:layout_marginStart="@dimen/dp_4"
+                android:hint="@string/fork_placeholder" />
         </LinearLayout>
 
     </RelativeLayout>

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -45,7 +46,8 @@ class TrendingListActivity : BaseActivity() {
         )
 
         // Get the view model
-        trendingListViewModel = ViewModelProviders.of(this).get(TrendingListViewModel::class.java)
+        trendingListViewModel =
+            ViewModelProviders.of(this).get(TrendingListViewModel(application)::class.java)
 
         fetchTrendingRepos()
 
@@ -63,13 +65,15 @@ class TrendingListActivity : BaseActivity() {
     }
 
     private fun fetchTrendingRepos() {
-        trendingListViewModel.getRepos()?.observe(this, Observer { repoList ->
+        showProgressBar(true)
+        trendingListViewModel.getRepos().observe(this, Observer { repoList ->
             Log.i(TAG, "Viewmodel response: $repoList")
 
             repoList?.let {
                 // stop animating Shimmer and hide the layout
                 shimmer_view_container.stopShimmer()
                 shimmer_view_container.visibility = View.GONE
+                showProgressBar(false)
                 if (it.isNotEmpty()) {
                     empty_list.visibility = View.GONE
                     trendingRepoList = it
@@ -108,10 +112,17 @@ class TrendingListActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         shimmer_view_container.startShimmer()
+        showNetworkMessage(hasNetwork())
     }
 
     override fun onPause() {
         shimmer_view_container.stopShimmer()
         super.onPause()
+    }
+
+    private fun showNetworkMessage(isConnected: Boolean) {
+        if (!isConnected) {
+            Toast.makeText(this, "Internet is not available", Toast.LENGTH_SHORT).show()
+        }
     }
 }

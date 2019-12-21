@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.abhijith.assignment.github_trending.adapter.TrendingRepoListAdapter
 import com.abhijith.assignment.github_trending.models.GithubRepo
 import com.abhijith.assignment.github_trending.network.ServiceGenerator
@@ -35,11 +34,10 @@ class TrendingListActivity : BaseActivity() {
 
         ServiceGenerator(this)
 
-        val recyclerView = findViewById<RecyclerView>(R.id.rv_repo)
         adapter = TrendingRepoListAdapter(this)
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.addItemDecoration(
+        rv_repo.adapter = adapter
+        rv_repo.layoutManager = LinearLayoutManager(this)
+        rv_repo.addItemDecoration(
             DividerItemDecoration(
                 this,
                 DividerItemDecoration.VERTICAL
@@ -48,19 +46,37 @@ class TrendingListActivity : BaseActivity() {
 
         // Get the view model
         trendingListViewModel = ViewModelProviders.of(this).get(TrendingListViewModel::class.java)
-        // Observe the model
+
+        fetchTrendingRepos()
+
+        swipeContainer.setOnRefreshListener {
+            fetchTrendingRepos()
+        }
+
+        swipeContainer.setColorSchemeResources(
+            android.R.color.holo_blue_bright,
+            android.R.color.holo_green_light,
+            android.R.color.holo_orange_light,
+            android.R.color.holo_red_light
+        )
+
+    }
+
+    private fun fetchTrendingRepos() {
         trendingListViewModel.getRepos()?.observe(this, Observer { repoList ->
             Log.i(TAG, "Viewmodel response: $repoList")
 
             repoList?.let {
                 // stop animating Shimmer and hide the layout
                 trendingRepoList = it
+                adapter.clear()
                 adapter.setRepos(trendingRepoList.sortedByDescending { repo -> repo.stars })
                 shimmer_view_container.stopShimmer()
                 shimmer_view_container.visibility = View.GONE
+                // Now we call setRefreshing(false) to signal refresh has finished
+                swipeContainer.isRefreshing = false
             }
         })
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

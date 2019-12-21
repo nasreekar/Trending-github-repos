@@ -71,4 +71,9 @@ class TrendingRepoListAdapter internal constructor(
     }
 
     override fun getItemCount() = repos.size
+
+    fun clear() {
+        repos = emptyList()
+        notifyDataSetChanged()
+    }
 }

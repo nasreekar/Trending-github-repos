@@ -11,12 +11,15 @@ import com.abhijith.assignment.github_trending.R
 import com.abhijith.assignment.github_trending.models.GithubRepo
 import com.bumptech.glide.Glide
 
+
 class TrendingRepoListAdapter internal constructor(
     context: Context
 ) : RecyclerView.Adapter<TrendingRepoListAdapter.RepoViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var repos = emptyList<GithubRepo>()
+    private var mExpandedPosition = -1
+    private var previousExpandedPosition = -1
 
     inner class RepoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val author: TextView = itemView.findViewById(R.id.item_author)
@@ -26,6 +29,7 @@ class TrendingRepoListAdapter internal constructor(
         val starCount: TextView = itemView.findViewById(R.id.item_star_count)
         val forkCount: TextView = itemView.findViewById(R.id.item_fork_count)
         val avatar: ImageView = itemView.findViewById(R.id.item_avatar)
+        val itemExtraContainer: View = itemView.findViewById(R.id.item_extra_container)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
@@ -46,6 +50,18 @@ class TrendingRepoListAdapter internal constructor(
             .placeholder(R.drawable.ic_placeholder)
             .error(R.drawable.ic_placeholder)
             .into(holder.avatar)
+
+        val isExpanded = (position == mExpandedPosition)
+        holder.itemExtraContainer.visibility = if (isExpanded) View.VISIBLE else View.GONE
+        holder.itemView.isActivated = isExpanded
+
+        if (isExpanded) previousExpandedPosition = position
+
+        holder.itemView.setOnClickListener {
+            mExpandedPosition = if (isExpanded) -1 else position
+            notifyItemChanged(previousExpandedPosition)
+            notifyItemChanged(position)
+        }
     }
 
     internal fun setRepos(repos: List<GithubRepo>) {

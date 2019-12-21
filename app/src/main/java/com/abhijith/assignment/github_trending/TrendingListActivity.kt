@@ -4,12 +4,17 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.abhijith.assignment.github_trending.models.GithubRepo
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.abhijith.assignment.github_trending.adapter.TrendingRepoListAdapter
 import com.abhijith.assignment.github_trending.network.ServiceGenerator
 import com.abhijith.assignment.github_trending.viewmodels.TrendingListViewModel
+import kotlinx.android.synthetic.main.activity_trending_list.*
+
 
 class TrendingListActivity : BaseActivity() {
 
@@ -17,7 +22,7 @@ class TrendingListActivity : BaseActivity() {
         val TAG = TrendingListActivity::class.java.simpleName
     }
 
-    lateinit var trendingListViewModel: TrendingListViewModel
+    private lateinit var trendingListViewModel: TrendingListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,19 +32,25 @@ class TrendingListActivity : BaseActivity() {
 
         ServiceGenerator(this)
 
-        initialiseViewModel()
-        subscribeObservers()
-    }
+        val recyclerView = findViewById<RecyclerView>(R.id.rv_repo)
+        val adapter = TrendingRepoListAdapter(this)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
-    private fun initialiseViewModel() {
-        trendingListViewModel =
-            ViewModelProviders.of(this).get(TrendingListViewModel::class.java)
-    }
+        // Get the view model
+        trendingListViewModel = ViewModelProviders.of(this).get(TrendingListViewModel::class.java)
+        // Observe the model
+        trendingListViewModel.getRepos()?.observe(this, Observer { repoList ->
+            Log.i(TAG, "Viewmodel response: $repoList")
 
-    private fun subscribeObservers() {
-        trendingListViewModel.getRepos()?.observe(this, Observer<List<GithubRepo>> {
-            Log.i(TAG, "Viewmodel response: $it")
+            repoList?.let {
+                // stop animating Shimmer and hide the layout
+                adapter.setRepos(it)
+                shimmer_view_container.stopShimmer()
+                shimmer_view_container.visibility = View.GONE
+            }
         })
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -61,5 +72,15 @@ class TrendingListActivity : BaseActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        shimmer_view_container.startShimmer()
+    }
+
+    override fun onPause() {
+        shimmer_view_container.stopShimmer()
+        super.onPause()
     }
 }

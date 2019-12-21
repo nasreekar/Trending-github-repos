@@ -10,4 +10,5 @@
     <string name="fork_placeholder">123</string>
     <string name="author_placeholder">nasreekar</string>
     <string name="name_placeholder">Github Trending repo</string>
+    <string name="dp_empty_repo_list">No repos to display</string>
 </resources>

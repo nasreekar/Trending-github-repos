@@ -68,11 +68,16 @@ class TrendingListActivity : BaseActivity() {
 
             repoList?.let {
                 // stop animating Shimmer and hide the layout
-                trendingRepoList = it
-                adapter.clear()
-                adapter.setRepos(trendingRepoList.sortedByDescending { repo -> repo.stars })
                 shimmer_view_container.stopShimmer()
                 shimmer_view_container.visibility = View.GONE
+                if (it.isNotEmpty()) {
+                    empty_list.visibility = View.GONE
+                    trendingRepoList = it
+                    adapter.clear()
+                    adapter.setRepos(trendingRepoList.sortedByDescending { repo -> repo.stars })
+                } else {
+                    empty_list.visibility = View.VISIBLE
+                }
                 // Now we call setRefreshing(false) to signal refresh has finished
                 swipeContainer.isRefreshing = false
             }

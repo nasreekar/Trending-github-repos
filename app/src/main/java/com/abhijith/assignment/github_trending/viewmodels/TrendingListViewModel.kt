@@ -1,6 +1,6 @@
 package com.abhijith.assignment.github_trending.viewmodels
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.abhijith.assignment.github_trending.models.GithubRepo
 import com.abhijith.assignment.github_trending.repositories.GithubRepository
@@ -11,7 +11,7 @@ class TrendingListViewModel : ViewModel() {
 
     private var githubRepository: GithubRepository = GithubRepository()
 
-    fun getRepos(): MutableLiveData<List<GithubRepo>>? {
+    fun getRepos(): LiveData<List<GithubRepo>>? {
         return githubRepository.getTrendingRepos()
     }
 }

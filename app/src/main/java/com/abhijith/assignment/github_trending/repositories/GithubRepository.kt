@@ -32,6 +32,7 @@ class GithubRepository(private val context: Context, private val githubRepoDao: 
 
     private fun getTrendingReposFromApi(): Observable<List<GithubRepo>> {
         return githubRepoApiClient.getTrendingRepos().doOnNext {
+            githubRepoDao.deleteAll()
             for (item in it) {
                 githubRepoDao.insertRepo(item)
             }

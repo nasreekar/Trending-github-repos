@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.abhijith.assignment.github_trending.adapter.TrendingRepoListAdapter
 import com.abhijith.assignment.github_trending.models.GithubRepo
 import com.abhijith.assignment.github_trending.network.ServiceGenerator
+import com.abhijith.assignment.github_trending.util.ConnectivityUtil
 import com.abhijith.assignment.github_trending.viewmodels.TrendingListViewModel
 import kotlinx.android.synthetic.main.activity_trending_list.*
 
@@ -46,8 +47,7 @@ class TrendingListActivity : BaseActivity() {
         )
 
         // Get the view model
-        trendingListViewModel =
-            ViewModelProviders.of(this).get(TrendingListViewModel(application)::class.java)
+        initialiseViewModel()
 
         fetchTrendingRepos()
 
@@ -62,6 +62,11 @@ class TrendingListActivity : BaseActivity() {
             android.R.color.holo_red_light
         )
 
+    }
+
+    private fun initialiseViewModel() {
+        trendingListViewModel =
+            ViewModelProviders.of(this).get(TrendingListViewModel(application)::class.java)
     }
 
     private fun fetchTrendingRepos() {

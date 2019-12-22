@@ -13,18 +13,17 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun githubRepoDao(): GithubRepoDao
 
     companion object {
-        private var INSTANCE: AppDatabase? = null
+        private var instance: AppDatabase? = null
+        @Synchronized
         fun getInstance(context: Context): AppDatabase {
-            if (INSTANCE == null) {
-                synchronized(AppDatabase::class) {
-                    INSTANCE = Room.databaseBuilder(
-                        context.applicationContext,
-                        AppDatabase::class.java, Constants.DATABASE_NAME
-                    )
-                        .build()
-                }
+            if (instance == null) {
+                instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDatabase::class.java, Constants.DATABASE_NAME
+                )
+                    .build()
             }
-            return INSTANCE as AppDatabase
+            return instance as AppDatabase
         }
     }
 }

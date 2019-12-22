@@ -25,5 +25,9 @@ abstract class AppDatabase : RoomDatabase() {
             }
             return instance as AppDatabase
         }
+
+        fun destroyInstance() {
+            instance = null
+        }
     }
 }
